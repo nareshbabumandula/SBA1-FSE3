@@ -14,7 +14,7 @@
 		<p>Error Message : <%=exception.getMessage()%> </p>
 		<p>Please Contact Administrator</p>
 	</div>
-	Please go to <a href="/index.jsp">home page</a>
+	Please go to <a href="index.jsp">home page</a>
 <hr/>	
 	<jsp:include page="footer.jsp"/>
 </body>

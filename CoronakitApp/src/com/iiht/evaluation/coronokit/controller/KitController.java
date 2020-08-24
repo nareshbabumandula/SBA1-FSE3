@@ -13,14 +13,17 @@ import com.iiht.evaluation.coronokit.exception.AdminException;
 import com.iiht.evaluation.coronokit.model.Kit;
 import com.iiht.evaluation.coronokit.service.KitService;
 import com.iiht.evaluation.coronokit.service.KitServiceImpl;
+import com.iiht.evaluation.coronokit.service.ProductService;
+import com.iiht.evaluation.coronokit.service.ProductServiceImpl;
 
 /**
  * Servlet implementation class KitController
  */
-@WebServlet("/Kit")
+@WebServlet("/kit")
 public class KitController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private KitService kitService;
+	private ProductService productService;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -32,6 +35,7 @@ public class KitController extends HttpServlet {
 	@Override
 	public void init() throws ServletException {
 		kitService = new KitServiceImpl();
+		productService = new ProductServiceImpl();
 	}
 
 	/**
@@ -46,6 +50,7 @@ public class KitController extends HttpServlet {
 			switch (method) {
 			case "add":
 				addProductToKit(request, response);
+				request.setAttribute("products", productService.list());
 				view = "listproducts.jsp";
 				break;
 			case "update":

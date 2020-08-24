@@ -13,43 +13,44 @@
 <body>
 	<jsp:include page="header.jsp" />
 	<hr>
-	<c:choose>
-		<c:when test="${products == null || products.isEmpty() }">
-			<p>No Products Available</p>
-		</c:when>
-		<c:otherwise>
-			<table border="1" cellspacing="5px" cellpadding="5px">
-				<tr>
-					<th>Id</th>
-					<th>ProductName</th>
-					<th>Cost</th>
-					<th>ProductDescription</th>
-				</tr>
-				<c:forEach items="${products }" var="product">
+	<div>
+		<c:choose>
+			<c:when test="${products == null || products.isEmpty() }">
+				<p>No Products Available</p>
+			</c:when>
+			<c:otherwise>
+				<table border="1" cellspacing="5px" cellpadding="5px">
 					<tr>
-						<td><input type="checkbox" name="productid"
-							value="${product.id }"></td>
-						<td>${product.Id }</td>
-						<td><c:if test="${type == 'visitor'}">
-							<c:set var="productdetails">
-									<c:url value="product">
-										<c:param name="action" value="productdetails" />
-										<c:param name="productid" value="${product.id }" />
-									</c:url>
-								</c:set>
-								<a href="${productdetails}">${product.productName }</a>
-							</c:if> 
-							<c:if test="${type == 'admin'}">
-								${product.productName }
-							</c:if>
-							</td>
-						<td>${product.cost }</td>
-						<td>${product.productDescription }</td>
+						<th></th>
+						<th>Id</th>
+						<th>ProductName</th>
+						<th>Cost</th>
+						<th>ProductDescription</th>
 					</tr>
-				</c:forEach>
-			</table>
-		</c:otherwise>
-	</c:choose>
+					<c:forEach items="${products }" var="product">
+						<tr>
+							<td><input type="checkbox" name="productid"
+								value="${product.id }"></td>
+							<td>${product.id }</td>
+							<td><c:if test="${type == 'visitor'}">
+									<c:set var="productdetails">
+										<c:url value="product">
+											<c:param name="action" value="productdetails" />
+											<c:param name="productid" value="${product.id }" />
+										</c:url>
+									</c:set>
+									<a href="${productdetails}">${product.productName }</a>
+								</c:if> <c:if test="${type == 'admin'}">
+								${product.productName }
+							</c:if></td>
+							<td>${product.cost }</td>
+							<td>${product.productDescription }</td>
+						</tr>
+					</c:forEach>
+				</table>
+			</c:otherwise>
+		</c:choose>
+	</div>
 	<div>
 		<table>
 			<c:if test="${type == 'admin'}">
@@ -58,7 +59,6 @@
 						<button id="addproduct" type="button">Add Product</button>
 						<button id="updateproduct" type="button">Update Product</button>
 						<button id="deleteproduct" type="button">Delete Product</button>
-
 					</td>
 				</tr>
 			</c:if>
@@ -77,7 +77,7 @@
 				var buttonId = $(this).attr('id');
 
 				if (buttonId == 'addproduct') {
-					addProduct();
+					openPage('newproduct.jsp');
 					return;
 				}
 
@@ -91,8 +91,7 @@
 					$.each($("input[name='productid']:checked"), function() {
 						selectedIds.push($(this).val());
 					});
-					selectedIds = selectedIds.join(", ");
-					deleteProduct(selectedIds);
+					deleteProduct(selectedIds.join(", "));
 					return;
 				}
 
@@ -111,22 +110,36 @@
 			function updateProduct(productId) {
 				$.ajax({
 					type : "GET",
-					url : 'product?action=load&productid=' + productId
+					url : 'product?action=load&productid=' + productId,
+					success : function(data, textStatus) {
+						$("body").html(data);
+					}
 				});
 			}
 
 			function deleteProduct(ids) {
 				$.ajax({
 					type : "GET",
-					url : 'product?action=delete&ids=' + selectedIds
+					url : 'product?action=delete&ids=' + ids,
+					success : function(data, textStatus) {
+						$("body").html(data);
+					}
 				});
 			}
 
-			function showkit() {
+			function showKit() {
 				$.ajax({
 					type : "GET",
-					url : 'kit?action=show'
+					url : 'kit?action=show',
+					success : function(data, textStatus) {
+						$("body").html(data);
+					}
 				});
+			}
+			
+			function openPage(pageURL) {
+				alert("openpage");
+				window.location.href = pageURL;
 			}
 		});
 	</script>

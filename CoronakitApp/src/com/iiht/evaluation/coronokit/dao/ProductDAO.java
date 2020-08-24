@@ -16,7 +16,7 @@ public class ProductDAO {
 
 	public void add(ProductMaster product) throws AdminException {
 
-		String addQuery = "INSERT INTO productmaster ('ID', 'productName', 'cost', 'productDescription') values (?, ?, ?, ?)";
+		String addQuery = "INSERT INTO productmaster (ID, productName, cost, productDescription) values (?, ?, ?, ?)";
 
 		try (Connection con = DBConnection.getConnection(); PreparedStatement pst = con.prepareStatement(addQuery);) {
 
@@ -34,7 +34,7 @@ public class ProductDAO {
 
 	public void update(ProductMaster product) throws AdminException {
 
-		String updateQuery = "UPDATE productmaster SET productName = ? cost = ?, productDescription = ? WHERE ID = ?";
+		String updateQuery = "UPDATE productmaster SET productName = ?, cost = ?, productDescription = ? WHERE ID = ?";
 
 		try (Connection con = DBConnection.getConnection();
 				PreparedStatement pst = con.prepareStatement(updateQuery);) {

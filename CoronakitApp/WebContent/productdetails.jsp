@@ -46,8 +46,9 @@
 				$.ajax({
 					type : "GET",
 					url : 'kit?action=add&productid=' + productid,
-					success : function(responseText) {
+					success : function(data, textStatus) {
 						alert("Sucessfully added to the kit");
+						$("body").html(data);
 					}
 				});
 			}

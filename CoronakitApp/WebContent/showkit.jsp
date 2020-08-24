@@ -27,7 +27,7 @@
 				</tr>
 				<c:forEach items="${kit.products }" var="product">
 					<tr>
-						<td>${product.Id }</td>
+						<td>${product.id }</td>
 						<td>${product.productName }</td>
 						<td>${product.cost }</td>
 						<td>${product.productDescription }</td>
@@ -69,7 +69,11 @@
 			function placeOrder() {
 				$.ajax({
 					type : "GET",
-					url : 'kit?action=placeorder&address=' + $('textarea#deliveryaddress').val()
+					url : 'kit?action=placeorder&address=' + $('textarea#deliveryaddress').val(),
+					success : function(data, textStatus) {
+						alert("Sucessfully ordered");
+						$("body").html(data);
+					}
 				});
 			}
 		});

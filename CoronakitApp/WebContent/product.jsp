@@ -4,21 +4,20 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Order Product</title>
+<title>Corona Kit-Add New Product(Admin)</title>
 </head>
 <body>
 	<jsp:include page="header.jsp" />
-	<hr>
-	<h2>Product Order</h2>
-	<form action="product?action=placeorder" method="post">
-
+	<hr />
+	<h2>Update Product</h2>
+	<form action="product?action=update" method="post">
 		<div>
 			<div>
 				<label for="productId">Enter Product Id</label>
 			</div>
 			<div>
 				<input type="text" id="productid" name="productid"
-					value="${product.Id }">
+					value="${product.id }" readonly="readonly">
 			</div>
 		</div>
 		<div>
@@ -50,18 +49,11 @@
 		</div>
 		<div>
 			<div>
-				<label for="address">Shipping Address:</label>
+				<input type="submit" value="Update">
 			</div>
-			<div>
-				<textarea id="address" name="address" rows="10" cols="50">
-  			Enter Address here...
-  			</textarea>
-			</div>
-		</div>
-		<div>
-			<input type="submit" value="Place Order">
 		</div>
 	</form>
 	<hr />
+	<jsp:include page="footer.jsp" />
 </body>
 </html>

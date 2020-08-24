@@ -113,23 +113,26 @@ public class KitDao {
 		List<ProductMaster> products = new ArrayList<ProductMaster>();
 		ProductMaster productMaster = null;
 		Kit kit = null;
+		int count = 1;
 
 		try (Connection con = DBConnection.getConnection();
 				PreparedStatement pst = con.prepareStatement(selectQuery);) {
 			pst.setString(1, kitId);
 			try (ResultSet resultSet = pst.executeQuery()) {
-				kit = new Kit();
-				kit.setKitId(resultSet.getString(1));
-				kit.setProductCount(resultSet.getInt(2));
-				kit.setTotalAmount(resultSet.getInt(3));
 				while (resultSet.next()) {
+					if (count == 1) {
+						kit = new Kit();
+						kit.setKitId(resultSet.getString(1));
+						kit.setProductCount(resultSet.getInt(2));
+						kit.setTotalAmount(resultSet.getInt(3));
+					}
 					// Product details
 					productMaster = new ProductMaster();
 					productMaster.setId(resultSet.getInt(4));
 					productMaster.setProductName(resultSet.getString(5));
 					productMaster.setCost(resultSet.getInt(6));
-					productMaster.setProductDescription(resultSet.getString(7));
 					products.add(productMaster);
+					count++;
 				}
 				kit.setProducts(products);
 			}
@@ -153,7 +156,7 @@ public class KitDao {
 			pst.setString(1, kitId);
 			pst.setInt(2, product.getId());
 			pst.setString(3, product.getProductName());
-			pst.setString(4, product.getProductDescription());
+			pst.setInt(4, product.getCost());
 
 			pst.executeUpdate();
 
@@ -165,7 +168,7 @@ public class KitDao {
 	}
 
 	public String placeOrder(String kitId, String address) throws AdminException {
-		String orderKitQuery = "INSERT INTO order (id, kitid, status, address) values (?, ?, ?, ?)";
+		String orderKitQuery = "INSERT INTO orderdetails (id, kitid, status, address) values (?, ?, ?, ?)";
 		String orderId = UUID.randomUUID().toString();
 		try (Connection con = DBConnection.getConnection();
 				PreparedStatement pst = con.prepareStatement(orderKitQuery);) {

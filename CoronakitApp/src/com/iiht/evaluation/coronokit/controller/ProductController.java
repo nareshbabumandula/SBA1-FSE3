@@ -50,14 +50,22 @@ public class ProductController extends HttpServlet {
 			switch (method) {
 			case "add":
 				add(request, response);
+				request.setAttribute("products", list());
 				view = "listproducts.jsp";
 				break;
 			case "update":
 				update(request, response);
+				request.setAttribute("products", list());
 				view = "listproducts.jsp";
+				break;
+			case "load":
+				product = load(request, response);
+				request.setAttribute("product", product);
+				view = "product.jsp";
 				break;
 			case "delete":
 				delete(request, response);
+				request.setAttribute("products", list());
 				view = "listproducts.jsp";
 				break;
 			case "list":

@@ -8,7 +8,7 @@ public class ProductMaster {
 	private String productDescription;
 
 	public ProductMaster() {
-		// TODO Auto-generated constructor stub
+
 	}
 
 	public ProductMaster(int id, String productName, int cost, String productDescription) {

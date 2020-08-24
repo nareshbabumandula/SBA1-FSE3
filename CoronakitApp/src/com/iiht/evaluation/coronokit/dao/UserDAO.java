@@ -13,11 +13,11 @@ public class UserDAO {
 
 	public void add(User user) throws AdminException {
 
-		String addQuery = "INSERT INTO user ('ID', 'password', 'type' values (?, ?, ?)";
+		String addQuery = "INSERT INTO user (id, password, type) values (?, ?, ?)";
 
 		try (Connection con = DBConnection.getConnection(); PreparedStatement pst = con.prepareStatement(addQuery);) {
 
-			pst.setInt(1, Integer.valueOf(user.getId()));
+			pst.setString(1, user.getId());
 			pst.setString(2, user.getPassword());
 			pst.setString(3, user.getType());
 
