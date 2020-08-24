@@ -1,0 +1,39 @@
+CREATE TABLE kit (
+  `id` varchar(45) NOT NULL,
+  `noofitems` int DEFAULT NULL,
+  `totalamount` int NOT NULL,
+  PRIMARY KEY (`id`,`totalamount`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+)
+
+CREATE TABLE kitproducts (
+  `kitid` varchar(45) NOT NULL,
+  `productid` int NOT NULL,
+  `productname` varchar(45) NOT NULL,
+  `productcost` int NOT NULL
+);
+
+CREATE TABLE order (
+  `id` varchar(45) NOT NULL,
+  `kitid` varchar(45) DEFAULT NULL,
+  `status` varchar(45) DEFAULT NULL,
+  `address` varchar(512) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+);
+
+CREATE TABLE productmaster (
+  `ID` int NOT NULL,
+  `productName` varchar(255) DEFAULT NULL,
+  `cost` int DEFAULT NULL,
+  `productDescription` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+);
+
+CREATE TABLE user (
+  `id` varchar(45) NOT NULL,
+  `password` varchar(45) DEFAULT NULL,
+  `type` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+);
